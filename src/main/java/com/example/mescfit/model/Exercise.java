@@ -1,15 +1,15 @@
 package com.example.mescfit.model;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Getter
-@Setter
-@ToString
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "exercise_library")
 public class Exercise {
     @Id
@@ -32,6 +32,4 @@ public class Exercise {
         this.videoType = videoType;
         this.video = video;
     }
-
-    public Exercise() {}
 }

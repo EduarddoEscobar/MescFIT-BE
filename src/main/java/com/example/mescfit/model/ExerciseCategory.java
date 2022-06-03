@@ -1,15 +1,11 @@
 package com.example.mescfit.model;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
-@Getter
-@Setter
-@ToString
 @Entity
+@Data
 @Table(name = "exercise_categories")
 public class ExerciseCategory {
     @EmbeddedId

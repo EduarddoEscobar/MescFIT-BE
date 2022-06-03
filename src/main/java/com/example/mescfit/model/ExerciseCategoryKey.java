@@ -1,7 +1,6 @@
 package com.example.mescfit.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
@@ -9,8 +8,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import java.io.Serializable;
 
-@Getter
-@Setter
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Embeddable
 public class ExerciseCategoryKey implements Serializable {
     @ManyToOne(cascade = CascadeType.REMOVE, optional = false)
