@@ -1,4 +1,4 @@
-package com.example.mescfit.exercise;
+package com.example.mescfit.model;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,5 +1,6 @@
 package com.example.mescfit.exercise;
 
+import com.example.mescfit.model.Exercise;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
