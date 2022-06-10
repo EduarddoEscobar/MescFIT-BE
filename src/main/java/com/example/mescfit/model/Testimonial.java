@@ -1,8 +1,15 @@
 package com.example.mescfit.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "testimonials")
 public class Testimonial {
     @Id
