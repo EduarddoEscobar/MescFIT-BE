@@ -1,6 +1,7 @@
 package com.example.mescfit.testimonial;
 
 import com.example.mescfit.model.Testimonial;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -14,8 +15,13 @@ class TestimonialRepositoryTest {
     @Autowired
     private TestimonialRepository underTest;
 
+    @AfterEach
+    void tearDown() {
+        underTest.deleteAll();
+    }
+
     @Test
-    void saveFunctionWorks() {
+    void itShouldReturnAListOfAllTestimonialsWithTheSpecificName() {
         // given
         Testimonial testimonial = new Testimonial(1,
                 "Bob",
@@ -23,10 +29,12 @@ class TestimonialRepositoryTest {
                 "Testimonial"
         );
 
+        underTest.save(testimonial);
         // when
-        Testimonial result = underTest.save(testimonial);
+        List<Testimonial> result = underTest.findAllByFirstName("Bob");
 
         // then
-        assertThat(result).isEqualTo(testimonial);
+        List<Testimonial> expected = List.of(testimonial);
+        assertThat(result).isEqualTo(expected);
     }
 }

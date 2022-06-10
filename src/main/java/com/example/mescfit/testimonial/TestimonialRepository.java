@@ -9,6 +9,6 @@ import java.util.List;
 
 @Repository
 public interface TestimonialRepository extends JpaRepository<Testimonial, Integer> {
-    @Query("SELECT t FROM testimonials t WHERE t.first_name = ?1")
+    @Query("SELECT testimonial FROM Testimonial testimonial WHERE testimonial.first_name = ?1")
     List<Testimonial> findAllByFirstName(String name);
 }
