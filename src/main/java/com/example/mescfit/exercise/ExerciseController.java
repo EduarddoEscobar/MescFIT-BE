@@ -34,7 +34,7 @@ public class ExerciseController {
     @PostMapping("/uploadFiles")
     public String uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) throws IOException {
         for(MultipartFile file: files){
-            exerciseService.saveExercise("Exercise", "Description", file);
+            exerciseService.addExercise("Exercise", "Description", file);
         }
         return "redirect:/";
     }

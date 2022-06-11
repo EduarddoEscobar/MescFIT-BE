@@ -26,7 +26,7 @@ public class TestimonialController {
 
     @PostMapping(value = {"", "/"})
     public Testimonial createNewTestimonial(@RequestBody Testimonial testimonial){
-        return testimonialService.saveTestimonial(testimonial);
+        return testimonialService.addTestimonial(testimonial);
     }
 
     @PutMapping(value = {"/{id}"})

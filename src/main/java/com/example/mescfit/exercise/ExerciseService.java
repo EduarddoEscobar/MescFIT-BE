@@ -16,7 +16,7 @@ public class ExerciseService {
         this.exerciseRepository = exerciseRepository;
     }
 
-    public Exercise saveExercise(String name, String description, MultipartFile file) throws IOException {
+    public Exercise addExercise(String name, String description, MultipartFile file) throws IOException {
         Exercise exercise = new Exercise(name, description, file.getContentType(), file.getBytes());
         return this.exerciseRepository.save(exercise);
     }

@@ -23,7 +23,7 @@ public class TestimonialService {
                 .orElseThrow(() -> new NotFoundException(String.format("Testimonial with id: %s was not found", id)));
     }
 
-    public Testimonial saveTestimonial(Testimonial testimonial) {
+    public Testimonial addTestimonial(Testimonial testimonial) {
         return testimonialRepository.save(testimonial);
     }
 
