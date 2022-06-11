@@ -20,7 +20,7 @@ public class TestimonialService {
 
     public Testimonial getTestimonialById(Integer id) {
         return testimonialRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException(String.format("Testimonial with id: %s was not found", id)));
+                .orElseThrow(() -> new NotFoundException("Testimonial with id: " + id + " was not found"));
     }
 
     public Testimonial addTestimonial(Testimonial testimonial) {

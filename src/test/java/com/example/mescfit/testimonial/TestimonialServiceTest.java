@@ -2,7 +2,6 @@ package com.example.mescfit.testimonial;
 
 import com.example.mescfit.model.Testimonial;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -56,11 +55,11 @@ class TestimonialServiceTest {
     void willThrowWhenThereIsNoTestimonialWithId() {
         // given
         given(testimonialRepository.findById(1))
-                .willReturn(null);
+                .willReturn(Optional.empty());
         // when
         // then
-        assertThatThrownBy(() -> underTest.getTestimonialById(1));
-//                .hasMessageContaining("Testimonial with id: 1 was not found");
+        assertThatThrownBy(() -> underTest.getTestimonialById(1))
+                .hasMessageContaining("Testimonial with id: 1 was not found");
     }
 
     @Test
@@ -86,12 +85,47 @@ class TestimonialServiceTest {
     }
 
     @Test
-    @Disabled
-    void updateTestimonial() {
+    void canUpdateTestimonial() {
+        // given
+        Testimonial testimonial = new Testimonial(1,
+                "Bob",
+                "M",
+                "Testimonial"
+        );
+        Testimonial newTestimonial = new Testimonial(1,
+                "John",
+                "M",
+                "Testimonial"
+        );
+        given(testimonialRepository.findById(1))
+                .willReturn(Optional.of(testimonial));
+        // when
+        underTest.updateTestimonial(newTestimonial, 1);
+
+        // then
+        ArgumentCaptor<Testimonial> testimonialArgumentCaptor =
+                ArgumentCaptor.forClass(Testimonial.class);
+        verify(testimonialRepository)
+                .save(testimonialArgumentCaptor.capture());
+        Testimonial capturedTestimonial = testimonialArgumentCaptor.getValue();
+        assertThat(capturedTestimonial).isEqualTo(newTestimonial);
     }
 
     @Test
-    @Disabled
-    void deleteTestimonial() {
+    void canDeleteTestimonial() {
+        // given
+        Testimonial testimonial = new Testimonial(1,
+                "Bob",
+                "M",
+                "Testimonial"
+        );
+        given(testimonialRepository.findById(1))
+                .willReturn(Optional.of(testimonial));
+        // when
+        Testimonial result = underTest.deleteTestimonial(1);
+
+        // then
+        verify(testimonialRepository).deleteById(1);
+        assertThat(result).isEqualTo(testimonial);
     }
 }
