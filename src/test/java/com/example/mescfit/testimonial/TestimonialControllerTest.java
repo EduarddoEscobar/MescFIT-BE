@@ -35,12 +35,14 @@ class TestimonialControllerTest {
         Testimonial testimonial = new Testimonial(1,
                 "Jane",
                 "L",
-                "Testimonial"
+                "Testimonial",
+                false
         );
         Testimonial testimonial1 = new Testimonial(1,
                 "Jane",
                 "I",
-                "Testimonial"
+                "Testimonial",
+                false
         );
 
         // when
@@ -57,7 +59,7 @@ class TestimonialControllerTest {
                 .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
                 .andExpect(MockMvcResultMatchers.content()
                         .string(
-                                "{\"testimonial_id\":1,\"first_name\":\"Jane\",\"last_initial\":\"I\",\"testimonial\":\"Testimonial\"}"));
+                                "{\"testimonial_id\":1,\"first_name\":\"Jane\",\"last_initial\":\"I\",\"testimonial\":\"Testimonial\",\"anonymous\":false}"));
     }
 
     @Test
@@ -66,12 +68,14 @@ class TestimonialControllerTest {
         Testimonial testimonial = new Testimonial(1,
                 "Jane",
                 "L",
-                "Testimonial"
+                "Testimonial",
+                false
         );
         Testimonial testimonial1 = new Testimonial(1,
                 "Jane",
                 "I",
-                "Testimonial"
+                "Testimonial",
+                false
         );
 
         // when
@@ -89,7 +93,7 @@ class TestimonialControllerTest {
                 .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
                 .andExpect(MockMvcResultMatchers.content()
                         .string(
-                                "{\"testimonial_id\":1,\"first_name\":\"Jane\",\"last_initial\":\"L\",\"testimonial\":\"Testimonial\"}"));
+                                "{\"testimonial_id\":1,\"first_name\":\"Jane\",\"last_initial\":\"L\",\"testimonial\":\"Testimonial\",\"anonymous\":false}"));
     }
 
     @Test
@@ -98,7 +102,8 @@ class TestimonialControllerTest {
         Testimonial testimonial = new Testimonial(1,
                 "Jane",
                 "L",
-                "Testimonial"
+                "Testimonial",
+                false
         );
 
         // when
@@ -113,7 +118,7 @@ class TestimonialControllerTest {
                 .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
                 .andExpect(MockMvcResultMatchers.content()
                         .string(
-                                "{\"testimonial_id\":1,\"first_name\":\"Jane\",\"last_initial\":\"L\",\"testimonial\":\"Testimonial\"}"));
+                                "{\"testimonial_id\":1,\"first_name\":\"Jane\",\"last_initial\":\"L\",\"testimonial\":\"Testimonial\",\"anonymous\":false}"));
     }
 
     @Test
@@ -138,7 +143,8 @@ class TestimonialControllerTest {
         Testimonial testimonial = new Testimonial(1,
                 "Jane",
                 "L",
-                "Testimonial"
+                "Testimonial",
+                false
         );
 
         // when
@@ -153,7 +159,7 @@ class TestimonialControllerTest {
                 .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
                 .andExpect(MockMvcResultMatchers.content()
                         .string(
-                                "{\"testimonial_id\":1,\"first_name\":\"Jane\",\"last_initial\":\"L\",\"testimonial\":\"Testimonial\"}"));
+                                "{\"testimonial_id\":1,\"first_name\":\"Jane\",\"last_initial\":\"L\",\"testimonial\":\"Testimonial\",\"anonymous\":false}"));
     }
 }
 

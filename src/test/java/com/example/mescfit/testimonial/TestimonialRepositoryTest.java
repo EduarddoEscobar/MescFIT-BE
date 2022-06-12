@@ -26,7 +26,8 @@ class TestimonialRepositoryTest {
         Testimonial testimonial = new Testimonial(1,
                 "Bob",
                 "M",
-                "Testimonial"
+                "Testimonial",
+                false
         );
 
         underTest.save(testimonial);

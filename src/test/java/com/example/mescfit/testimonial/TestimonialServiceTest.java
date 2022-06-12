@@ -40,7 +40,8 @@ class TestimonialServiceTest {
         Testimonial testimonial = new Testimonial(1,
                 "Bob",
                 "M",
-                "Testimonial"
+                "Testimonial",
+                false
         );
         given(testimonialRepository.findById(1))
                 .willReturn(Optional.of(testimonial));
@@ -68,7 +69,8 @@ class TestimonialServiceTest {
         Testimonial testimonial = new Testimonial(1,
                 "Bob",
                 "M",
-                "Testimonial"
+                "Testimonial",
+                false
         );
 
         // when
@@ -90,12 +92,14 @@ class TestimonialServiceTest {
         Testimonial testimonial = new Testimonial(1,
                 "Bob",
                 "M",
-                "Testimonial"
+                "Testimonial",
+                false
         );
         Testimonial newTestimonial = new Testimonial(1,
                 "John",
                 "M",
-                "Testimonial"
+                "Testimonial",
+                false
         );
         given(testimonialRepository.findById(1))
                 .willReturn(Optional.of(testimonial));
@@ -117,7 +121,8 @@ class TestimonialServiceTest {
         Testimonial testimonial = new Testimonial(1,
                 "Bob",
                 "M",
-                "Testimonial"
+                "Testimonial",
+                false
         );
         given(testimonialRepository.findById(1))
                 .willReturn(Optional.of(testimonial));

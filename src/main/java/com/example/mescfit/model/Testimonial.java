@@ -24,4 +24,7 @@ public class Testimonial {
 
     @Column(name = "testimonial", nullable = false, length = 1500)
     private String testimonial;
+
+    @Column(name = "anonymous")
+    private Boolean anonymous;
 }
