@@ -1,6 +1,5 @@
 package com.example.mescfit.testimonial;
 
-import com.example.mescfit.model.Testimonial;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,28 +13,28 @@ public class TestimonialController {
         this.testimonialService = testimonialService;
     }
 
-    @GetMapping(value = {"", "/"})
+    @GetMapping
     public List<Testimonial> findAllTestimonials(){
         return testimonialService.getAllTestimonials();
     }
 
     @GetMapping(value = {"/{id}"})
-    public Testimonial findTestimonialById(@PathVariable Integer id){
+    public Testimonial findTestimonialById(@PathVariable Long id){
         return testimonialService.getTestimonialById(id);
     }
 
-    @PostMapping(value = {"", "/"})
+    @PostMapping
     public Testimonial createNewTestimonial(@RequestBody Testimonial testimonial){
         return testimonialService.addTestimonial(testimonial);
     }
 
     @PutMapping(value = {"/{id}"})
-    public Testimonial updateTestimonial(@RequestBody Testimonial testimonial, @PathVariable Integer id){
+    public Testimonial updateTestimonial(@RequestBody Testimonial testimonial, @PathVariable Long id){
         return testimonialService.updateTestimonial(testimonial, id);
     }
 
     @DeleteMapping(value = {"/{id}"})
-    public Testimonial deleteTestimonial(@PathVariable Integer id){
+    public Testimonial deleteTestimonial(@PathVariable Long id){
         return testimonialService.deleteTestimonial(id);
     }
 }

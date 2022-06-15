@@ -1,6 +1,5 @@
 package com.example.mescfit.testimonial;
 
-import com.example.mescfit.model.Testimonial;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -37,16 +36,15 @@ class TestimonialServiceTest {
     @Test
     void canGetTestimonialById() {
         // given
-        Testimonial testimonial = new Testimonial(1,
+        Testimonial testimonial = new Testimonial(
                 "Bob",
                 "M",
-                "Testimonial",
-                false
+                "Testimonial"
         );
-        given(testimonialRepository.findById(1))
+        given(testimonialRepository.findById(1L))
                 .willReturn(Optional.of(testimonial));
         // when
-        Testimonial result = underTest.getTestimonialById(1);
+        Testimonial result = underTest.getTestimonialById(1L);
 
         // then
         assertThat(result).isEqualTo(testimonial);
@@ -55,22 +53,21 @@ class TestimonialServiceTest {
     @Test
     void willThrowWhenThereIsNoTestimonialWithId() {
         // given
-        given(testimonialRepository.findById(1))
+        given(testimonialRepository.findById(1L))
                 .willReturn(Optional.empty());
         // when
         // then
-        assertThatThrownBy(() -> underTest.getTestimonialById(1))
+        assertThatThrownBy(() -> underTest.getTestimonialById(1L))
                 .hasMessageContaining("Testimonial with id: 1 was not found");
     }
 
     @Test
     void canAddTestimonial() {
         // given
-        Testimonial testimonial = new Testimonial(1,
+        Testimonial testimonial = new Testimonial(
                 "Bob",
                 "M",
-                "Testimonial",
-                false
+                "Testimonial"
         );
 
         // when
@@ -89,22 +86,20 @@ class TestimonialServiceTest {
     @Test
     void canUpdateTestimonial() {
         // given
-        Testimonial testimonial = new Testimonial(1,
+        Testimonial testimonial = new Testimonial(
                 "Bob",
                 "M",
-                "Testimonial",
-                false
+                "Testimonial"
         );
-        Testimonial newTestimonial = new Testimonial(1,
+        Testimonial newTestimonial = new Testimonial(
                 "John",
                 "M",
-                "Testimonial",
-                false
+                "Testimonial"
         );
-        given(testimonialRepository.findById(1))
+        given(testimonialRepository.findById(1L))
                 .willReturn(Optional.of(testimonial));
         // when
-        underTest.updateTestimonial(newTestimonial, 1);
+        underTest.updateTestimonial(newTestimonial, 1L);
 
         // then
         ArgumentCaptor<Testimonial> testimonialArgumentCaptor =
@@ -118,19 +113,18 @@ class TestimonialServiceTest {
     @Test
     void canDeleteTestimonial() {
         // given
-        Testimonial testimonial = new Testimonial(1,
+        Testimonial testimonial = new Testimonial(
                 "Bob",
                 "M",
-                "Testimonial",
-                false
+                "Testimonial"
         );
-        given(testimonialRepository.findById(1))
+        given(testimonialRepository.findById(1L))
                 .willReturn(Optional.of(testimonial));
         // when
-        Testimonial result = underTest.deleteTestimonial(1);
+        Testimonial result = underTest.deleteTestimonial(1L);
 
         // then
-        verify(testimonialRepository).deleteById(1);
+        verify(testimonialRepository).deleteById(1L);
         assertThat(result).isEqualTo(testimonial);
     }
 }

@@ -1,4 +1,4 @@
-package com.example.mescfit.model;
+package com.example.mescfit.exercise;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,19 +15,22 @@ public class Exercise {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "exercise_id")
-    private Integer exercise_id;
+    private Long id;
 
     @Column(name = "exercise_name", nullable = false)
-    private String exercise_name;
+    private String exerciseName;
     @Column(name = "description", nullable = false)
     private String description;
+
+    @Column(name = "video_type")
     private String videoType;
 
     @Lob
+    @Column(name = "video", nullable = false)
     private byte[] video;
 
-    public Exercise(String exercise_name, String description, String videoType, byte[] video) {
-        this.exercise_name = exercise_name;
+    public Exercise(String exerciseName, String description, String videoType, byte[] video) {
+        this.exerciseName = exerciseName;
         this.description = description;
         this.videoType = videoType;
         this.video = video;

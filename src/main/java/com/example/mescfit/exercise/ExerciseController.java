@@ -1,6 +1,5 @@
 package com.example.mescfit.exercise;
 
-import com.example.mescfit.model.Exercise;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -40,11 +39,11 @@ public class ExerciseController {
     }
 
     @GetMapping("/downloadFile/{id}")
-    public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable Integer id) {
+    public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable Long id) {
         Exercise exercise = this.exerciseService.getExercise(id);
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(exercise.getVideoType()))
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment:filename=\"" + exercise.getExercise_name() + "\"")
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment:filename=\"" + exercise.getExerciseName() + "\"")
                 .body(new ByteArrayResource(exercise.getVideo()));
     }
 

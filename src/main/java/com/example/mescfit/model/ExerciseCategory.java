@@ -5,7 +5,6 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@Data
 @Table(name = "exercise_categories")
 public class ExerciseCategory {
     @EmbeddedId

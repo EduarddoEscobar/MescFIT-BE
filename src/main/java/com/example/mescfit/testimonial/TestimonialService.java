@@ -1,7 +1,6 @@
 package com.example.mescfit.testimonial;
 
 import com.example.mescfit.exceptions.NotFoundException;
-import com.example.mescfit.model.Testimonial;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,7 +17,7 @@ public class TestimonialService {
         return testimonialRepository.findAll();
     }
 
-    public Testimonial getTestimonialById(Integer id) {
+    public Testimonial getTestimonialById(Long id) {
         return testimonialRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Testimonial with id: " + id + " was not found"));
     }
@@ -27,15 +26,15 @@ public class TestimonialService {
         return testimonialRepository.save(testimonial);
     }
 
-    public Testimonial updateTestimonial(Testimonial testimonial, Integer id) {
+    public Testimonial updateTestimonial(Testimonial testimonial, Long id) {
         Testimonial testimonialToUpdate = getTestimonialById(id);
-        if(testimonial.getFirst_name() != null) testimonialToUpdate.setFirst_name(testimonial.getFirst_name());
-        if(testimonial.getLast_initial() != null) testimonialToUpdate.setLast_initial(testimonial.getLast_initial());
+        if(testimonial.getFirstName() != null) testimonialToUpdate.setFirstName(testimonial.getFirstName());
+        if(testimonial.getLastInitial() != null) testimonialToUpdate.setLastInitial(testimonial.getLastInitial());
         if(testimonial.getTestimonial() != null) testimonialToUpdate.setTestimonial(testimonial.getTestimonial());
         return testimonialRepository.save(testimonialToUpdate);
     }
 
-    public Testimonial deleteTestimonial(Integer id) {
+    public Testimonial deleteTestimonial(Long id) {
         Testimonial testimonial = getTestimonialById(id);
         testimonialRepository.deleteById(id);
         return testimonial;

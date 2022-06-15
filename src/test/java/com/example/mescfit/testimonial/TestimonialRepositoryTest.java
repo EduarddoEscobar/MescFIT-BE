@@ -1,6 +1,5 @@
 package com.example.mescfit.testimonial;
 
-import com.example.mescfit.model.Testimonial;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +22,10 @@ class TestimonialRepositoryTest {
     @Test
     void itShouldReturnAListOfAllTestimonialsWithTheSpecificName() {
         // given
-        Testimonial testimonial = new Testimonial(1,
+        Testimonial testimonial = new Testimonial(
                 "Bob",
                 "M",
-                "Testimonial",
-                false
+                "Testimonial"
         );
 
         underTest.save(testimonial);

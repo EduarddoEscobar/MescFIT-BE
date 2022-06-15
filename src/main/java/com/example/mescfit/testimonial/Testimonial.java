@@ -1,4 +1,4 @@
-package com.example.mescfit.model;
+package com.example.mescfit.testimonial;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,22 +9,25 @@ import javax.persistence.*;
 @Entity
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "testimonials")
 public class Testimonial {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer testimonial_id;
+    @Column(name = "testimonial_id")
+    private Long id;
 
     @Column(name = "first_name", nullable = false, length = 32)
-    private String first_name;
+    private String firstName;
 
     @Column(name = "last_initial", length = 3)
-    private String last_initial;
+    private String lastInitial;
 
     @Column(name = "testimonial", nullable = false, length = 1500)
     private String testimonial;
 
-    @Column(name = "anonymous")
-    private Boolean anonymous;
+    public Testimonial(String firstName, String lastInitial, String testimonial) {
+        this.firstName = firstName;
+        this.lastInitial = lastInitial;
+        this.testimonial = testimonial;
+    }
 }

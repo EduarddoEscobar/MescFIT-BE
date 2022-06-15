@@ -1,5 +1,6 @@
 package com.example.mescfit.model;
 
+import com.example.mescfit.exercise.Exercise;
 import lombok.*;
 
 import javax.persistence.CascadeType;
