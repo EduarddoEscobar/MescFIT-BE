@@ -19,16 +19,17 @@ public class CategoryService {
         return !categoryRepository.categoryWithNameExists(name);
     }
 
-    public void addCategory(String name) {
-        if(categoryRepository.categoryWithNameExists(name)){
-            throw new IllegalStateException("Category with the name" + name + " already exists");
+    public Category addCategory(Category category) {
+        if(categoryRepository.categoryWithNameExists(category.getCategoryName())){
+            throw new IllegalStateException("Category with the name " + category.getCategoryName() + " already exists");
         }
-        categoryRepository.save(new Category(name));
+        return categoryRepository.save(category);
     }
 
-    public void removeCategory(String name) {
+    public Category removeCategory(String name) {
         Category categoryToDelete = categoryRepository.findByCategoryName(name)
                 .orElseThrow(() -> new NotFoundException(String.format("Category with name %s was not found", name)));
         categoryRepository.delete(categoryToDelete);
+        return categoryToDelete;
     }
 }
