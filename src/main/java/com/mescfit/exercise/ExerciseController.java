@@ -1,4 +1,4 @@
-package com.example.mescfit.exercise;
+package com.mescfit.exercise;
 
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;

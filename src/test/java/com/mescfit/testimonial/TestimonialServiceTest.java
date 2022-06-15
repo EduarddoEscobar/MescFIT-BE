@@ -1,4 +1,4 @@
-package com.example.mescfit.testimonial;
+package com.mescfit.testimonial;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

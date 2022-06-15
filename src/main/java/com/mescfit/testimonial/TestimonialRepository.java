@@ -1,4 +1,4 @@
-package com.example.mescfit.testimonial;
+package com.mescfit.testimonial;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

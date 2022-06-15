@@ -1,4 +1,4 @@
-package com.example.mescfit.exercise;
+package com.mescfit.exercise;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

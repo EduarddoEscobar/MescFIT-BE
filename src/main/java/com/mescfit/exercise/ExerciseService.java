@@ -1,6 +1,6 @@
-package com.example.mescfit.exercise;
+package com.mescfit.exercise;
 
-import com.example.mescfit.exceptions.NotFoundException;
+import com.mescfit.exceptions.NotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 

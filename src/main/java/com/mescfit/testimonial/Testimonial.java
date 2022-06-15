@@ -1,4 +1,4 @@
-package com.example.mescfit.testimonial;
+package com.mescfit.testimonial;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package com.example.mescfit.testimonial;
+package com.mescfit.testimonial;
 
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.when;

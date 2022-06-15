@@ -1,6 +1,6 @@
-package com.example.mescfit.testimonial;
+package com.mescfit.testimonial;
 
-import com.example.mescfit.exceptions.NotFoundException;
+import com.mescfit.exceptions.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.example.mescfit.exceptions;
+package com.mescfit.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

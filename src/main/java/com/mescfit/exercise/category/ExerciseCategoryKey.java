@@ -1,6 +1,7 @@
-package com.example.mescfit.model;
+package com.mescfit.exercise.category;
 
-import com.example.mescfit.exercise.Exercise;
+import com.mescfit.category.Category;
+import com.mescfit.exercise.Exercise;
 import lombok.*;
 
 import javax.persistence.CascadeType;
@@ -20,6 +21,6 @@ public class ExerciseCategoryKey implements Serializable {
 
     @ManyToOne(cascade = CascadeType.REMOVE, optional = false)
     @JoinColumn(name = "category_id", nullable = false)
-    private Categories categories;
+    private Category category;
 
 }

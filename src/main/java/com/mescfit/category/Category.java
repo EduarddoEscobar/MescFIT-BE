@@ -1,4 +1,4 @@
-package com.example.mescfit.model;
+package com.mescfit.category;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -11,13 +11,16 @@ import javax.persistence.*;
 @ToString
 @Entity
 @Table(name = "categories")
-public class Categories {
+public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "category_id", nullable = false)
-    private Integer id;
+    private Long id;
 
     @Column(name = "category_name", nullable = false, unique = true, length = 32)
     private String categoryName;
 
+    public Category(String categoryName) {
+        this.categoryName = categoryName;
+    }
 }

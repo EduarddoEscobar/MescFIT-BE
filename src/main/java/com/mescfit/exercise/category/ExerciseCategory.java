@@ -1,6 +1,4 @@
-package com.example.mescfit.model;
-
-import lombok.*;
+package com.mescfit.exercise.category;
 
 import javax.persistence.*;
 
