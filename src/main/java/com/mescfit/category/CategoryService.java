@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Service
@@ -16,11 +15,14 @@ public class CategoryService {
         return categoryRepository.findAll();
     }
 
-    public boolean categoryWithNameExists(String name) {
-        return categoryRepository.findByCategoryName(name).isEmpty();
+    public boolean categoryWithNameDoesNotExists(String name) {
+        return !categoryRepository.categoryWithNameExists(name);
     }
 
     public void addCategory(String name) {
+        if(categoryRepository.categoryWithNameExists(name)){
+            throw new IllegalStateException("Category with the name" + name + " already exists");
+        }
         categoryRepository.save(new Category(name));
     }
 

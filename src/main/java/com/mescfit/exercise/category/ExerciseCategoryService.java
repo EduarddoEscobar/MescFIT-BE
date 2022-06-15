@@ -4,7 +4,6 @@ import com.mescfit.category.CategoryService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,9 +15,9 @@ public class ExerciseCategoryService {
 
     public List<String> addCategories(String[] categories) {
         List<String> categoriesAdded = Arrays.stream(categories)
-                .filter(categoryService::categoryWithNameExists)
+                .filter(categoryService::categoryWithNameDoesNotExists)
                 .collect(Collectors.toList());
-        
+        categoriesAdded.forEach(categoryService::addCategory);
         return categoriesAdded;
     }
 }
