@@ -1,17 +1,15 @@
 package com.mescfit.testimonial;
 
 import com.mescfit.exceptions.NotFoundException;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class TestimonialService {
     private final TestimonialRepository testimonialRepository;
-
-    public TestimonialService(TestimonialRepository testimonialRepository) {
-        this.testimonialRepository = testimonialRepository;
-    }
 
     public List<Testimonial> getAllTestimonials() {
         return testimonialRepository.findAll();

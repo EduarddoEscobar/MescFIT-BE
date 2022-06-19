@@ -1,17 +1,15 @@
 package com.mescfit.testimonial;
 
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/testimonials")
+@AllArgsConstructor
 public class TestimonialController {
     private final TestimonialService testimonialService;
-
-    public TestimonialController(TestimonialService testimonialService) {
-        this.testimonialService = testimonialService;
-    }
 
     @GetMapping
     public List<Testimonial> findAllTestimonials(){

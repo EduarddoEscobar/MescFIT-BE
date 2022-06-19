@@ -4,7 +4,9 @@ import com.mescfit.exceptions.NotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Service
@@ -13,6 +15,11 @@ public class CategoryService {
 
     public List<Category> getAllCategories() {
         return categoryRepository.findAll();
+    }
+
+    public Category getByCategoryName(String name) {
+        return categoryRepository.findByCategoryName(name)
+                .orElseThrow(() -> new NotFoundException(String.format("Category with name %s was not found", name)));
     }
 
     public boolean categoryWithNameDoesNotExists(String name) {
@@ -26,9 +33,17 @@ public class CategoryService {
         return categoryRepository.save(category);
     }
 
+    public List<Category> addCategories(List<String> categories) {
+        List<Category> categoriesAdded = categories.stream()
+                .filter(this::categoryWithNameDoesNotExists)
+                .map(Category::new)
+                .collect(Collectors.toList());
+        categoriesAdded.forEach(this::addCategory);
+        return categoriesAdded;
+    }
+
     public Category removeCategory(String name) {
-        Category categoryToDelete = categoryRepository.findByCategoryName(name)
-                .orElseThrow(() -> new NotFoundException(String.format("Category with name %s was not found", name)));
+        Category categoryToDelete = getByCategoryName(name);
         categoryRepository.delete(categoryToDelete);
         return categoryToDelete;
     }
