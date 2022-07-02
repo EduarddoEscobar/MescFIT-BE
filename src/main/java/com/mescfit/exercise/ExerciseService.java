@@ -22,7 +22,7 @@ public class ExerciseService {
         return this.exerciseRepository.save(exercise);
     }
 
-    public Exercise getExercise(Long id) {
+    public Exercise getExerciseById(Long id) {
         return this.exerciseRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(String.format("Exercise with id %s does was not found", id)));
     }
@@ -33,11 +33,28 @@ public class ExerciseService {
     }
 
     public List<ExerciseDTO> getAllExercises() {
-        List<ExerciseDTO> exercises = exerciseRepository.findAllWithoutVideo();
+        List<ExerciseDTO> exercises = exerciseRepository.findAll()
+                .stream()
+                .map(converter::entityToDTO)
+                .collect(Collectors.toList());
         exercises.forEach((exerciseDTO) ->
                 exerciseDTO.setCategories(exerciseCategoryService.getAllCategoriesForExercise(exerciseDTO.getId()))
         );
         return exercises;
     }
 
+    public Exercise removeExercise(Long id) {
+        Exercise exerciseToDelete =  getExerciseById(id);
+        exerciseRepository.delete(exerciseToDelete);
+        return exerciseToDelete;
+    }
+
+    public Exercise updateExercise(Exercise exercise, Long id) {
+        Exercise exerciseToUpdate = getExerciseById(id);
+        if(exercise.getExerciseName() != null) exerciseToUpdate.setExerciseName(exercise.getExerciseName());
+        if(exercise.getDescription() != null) exerciseToUpdate.setDescription(exercise.getDescription());
+        if(exercise.getVideoType() != null) exerciseToUpdate.setVideoType(exercise.getVideoType());
+        if(exercise.getVideo() != null) exerciseToUpdate.setVideo(exercise.getVideo());
+        return exerciseRepository.save(exerciseToUpdate);
+    }
 }

@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/testimonials")
+@RequestMapping("/api/v1/testimonials")
 @AllArgsConstructor
 public class TestimonialController {
     private final TestimonialService testimonialService;

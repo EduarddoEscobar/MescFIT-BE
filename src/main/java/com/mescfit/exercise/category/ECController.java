@@ -8,7 +8,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/EC")
@@ -26,7 +25,7 @@ public class ECController {
 
     @PostMapping("/{id}")
     public ExerciseDTO addEC(@RequestBody List<String> categories, @PathVariable Long id) {
-        Exercise exercise = exerciseService.getExercise(id);
+        Exercise exercise = exerciseService.getExerciseById(id);
         List<String> categoryNames = exerciseCategoryService.addCategoriesToExercise(exercise, categories)
                 .stream()
                 .map((category) -> category.getId().getCategory().getCategoryName()).toList();
