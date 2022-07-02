@@ -29,6 +29,12 @@ public class Exercise {
     @Column(name = "video", nullable = false)
     private byte[] video;
 
+    public Exercise(Long id, String exerciseName, String description) {
+        this.id = id;
+        this.exerciseName = exerciseName;
+        this.description = description;
+    }
+
     public Exercise(String exerciseName, String description, String videoType, byte[] video) {
         this.exerciseName = exerciseName;
         this.description = description;

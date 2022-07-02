@@ -45,7 +45,7 @@ class TestimonialControllerTest {
         // when
         when(this.testimonialService.updateTestimonial((Testimonial) any(), (Long) any())).thenReturn(testimonial1);
         String content = (new ObjectMapper()).writeValueAsString(testimonial1);
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.put("/api/testimonials/{id}", 1)
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.put("/api/v1/testimonials/{id}", 1)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(content);
         // then
@@ -76,7 +76,7 @@ class TestimonialControllerTest {
         // when
         when(this.testimonialService.addTestimonial((Testimonial) any())).thenReturn(testimonial);
         String content = (new ObjectMapper()).writeValueAsString(testimonial1);
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/api/testimonials")
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/api/v1/testimonials")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(content);
 
@@ -102,7 +102,7 @@ class TestimonialControllerTest {
 
         // when
         when(this.testimonialService.deleteTestimonial((Long) any())).thenReturn(testimonial);
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/api/testimonials/{id}", 1);
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/api/v1/testimonials/{id}", 1);
 
         // then
         MockMvcBuilders.standaloneSetup(this.testimonialController)
@@ -120,7 +120,7 @@ class TestimonialControllerTest {
         // given
         // when
         when(this.testimonialService.getAllTestimonials()).thenReturn(new ArrayList<>());
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/api/testimonials");
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/api/v1/testimonials");
 
         // then
         MockMvcBuilders.standaloneSetup(this.testimonialController)
@@ -142,7 +142,7 @@ class TestimonialControllerTest {
 
         // when
         when(this.testimonialService.getTestimonialById((Long) any())).thenReturn(testimonial);
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/api/testimonials/{id}", 1);
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/api/v1/testimonials/{id}", 1);
 
         // then
         MockMvcBuilders.standaloneSetup(this.testimonialController)

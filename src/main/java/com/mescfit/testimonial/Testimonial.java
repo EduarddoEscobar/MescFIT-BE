@@ -20,7 +20,7 @@ public class Testimonial {
     private String firstName;
 
     @Column(name = "last_initial", length = 3)
-    private String lastInitial;
+    private String lastInitial = "N/A";
 
     @Column(name = "testimonial", nullable = false, length = 1500)
     private String testimonial;
