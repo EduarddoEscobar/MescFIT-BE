@@ -9,6 +9,6 @@ import java.util.List;
 @Repository
 public interface ExerciseCategoryRepository extends JpaRepository<ExerciseCategory, ExerciseCategoryKey> {
     @Query("SELECT c.id.category.categoryName FROM ExerciseCategory c " +
-            "WHERE c.id.exercise.id = ?1")
+            "WHERE c.id.exercise.exerciseId = ?1")
     List<String> findAllFromExercise(Long exercise_id);
 }

@@ -26,10 +26,10 @@
             </thead>
             <tbody>
                 <tr th:each="exercise: ${exercises}">
-                    <td th:text="${exercise.getId}"></td>
+                    <td th:text="${exercise.getExerciseId}"></td>
                     <td th:text="${exercise.getExerciseName}"></td>
                     <td th:text="${exercise.description}"></td>
-                    <td><a th:href="@{'/downloadFile/' + ${exercise.getId}}">Download Here</a></td>
+                    <td><a th:href="@{'/downloadFile/' + ${exercise.getExerciseId}}">Download Here</a></td>
                 </tr>
             </tbody>
         </table>

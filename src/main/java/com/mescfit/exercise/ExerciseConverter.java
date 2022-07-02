@@ -9,7 +9,7 @@ public class ExerciseConverter {
 
     public ExerciseDTO entityToDTO(Exercise exercise) {
         return new ExerciseDTO(
-            exercise.getId(),
+            exercise.getExerciseId(),
             exercise.getExerciseName(),
             exercise.getDescription()
         );
@@ -17,7 +17,7 @@ public class ExerciseConverter {
 
     public ExerciseDTO entityToDTO(Exercise exercise, List<String> categories) {
          return new ExerciseDTO(
-             exercise.getId(),
+             exercise.getExerciseId(),
              exercise.getExerciseName(),
              exercise.getDescription(),
              categories

@@ -1,6 +1,6 @@
 package com.mescfit.testimonial;
 
-import lombok.AllArgsConstructor;
+import com.mescfit.userProfiles.UserProfile;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,20 +14,17 @@ public class Testimonial {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "testimonial_id")
-    private Long id;
+    private Long testimonialId;
 
-    @Column(name = "first_name", nullable = false, length = 32)
-    private String firstName;
-
-    @Column(name = "last_initial", length = 3)
-    private String lastInitial = "N/A";
+    @OneToOne(cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @JoinColumn(name = "author_user_id", unique = true)
+    private UserProfile author;
 
     @Column(name = "testimonial", nullable = false, length = 1500)
     private String testimonial;
 
-    public Testimonial(String firstName, String lastInitial, String testimonial) {
-        this.firstName = firstName;
-        this.lastInitial = lastInitial;
+    public Testimonial(UserProfile author, String testimonial) {
+        this.author = author;
         this.testimonial = testimonial;
     }
 }
