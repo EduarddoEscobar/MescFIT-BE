@@ -1,6 +1,7 @@
 package com.mescfit.testimonial;
 
 import com.mescfit.userProfiles.UserProfile;
+import com.mescfit.userProfiles.UserProfileRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 class TestimonialRepositoryTest {
     @Autowired
     private TestimonialRepository underTest;
+    @Autowired
+    private UserProfileRepository userProfileRepository;
 
     @AfterEach
     void tearDown() {
@@ -24,6 +27,8 @@ class TestimonialRepositoryTest {
     void itShouldReturnAListOfAllTestimonialsWithTheSpecificName() {
         // given
         UserProfile author = new UserProfile("Bob", "Foo", null);
+        userProfileRepository.save(author);
+
         Testimonial testimonial = new Testimonial(
                 author,
                 "Testimonial"
