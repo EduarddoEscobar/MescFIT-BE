@@ -21,6 +21,10 @@ public class Exercise {
     private String exerciseName;
     @Column(name = "description", nullable = false)
     private String description;
+
+    @Column(name = "exercise_thumbnail_link", unique = true)
+    private String exerciseThumbnailLink;
+
     @Column(name = "exercise_video_link", unique = true)
     private String exerciseVideoLink;
 
