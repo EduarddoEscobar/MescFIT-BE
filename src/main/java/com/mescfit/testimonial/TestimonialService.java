@@ -36,7 +36,7 @@ public class TestimonialService {
         return testimonial;
     }
 
-    public List<Testimonial> findTestimonialByFirstName(String firstName) {
+    public List<Testimonial> getTestimonialsByFirstName(String firstName) {
         return testimonialRepository.findAllByFirstName(firstName);
     }
 }

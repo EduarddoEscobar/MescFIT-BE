@@ -6,8 +6,10 @@ import static org.mockito.Mockito.when;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.mescfit.userProfiles.UserProfile;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,17 +31,22 @@ class TestimonialControllerTest {
     @MockBean
     private TestimonialService testimonialService;
 
+    @BeforeEach
+    void setUp() {
+
+    }
+
     @Test
     void testUpdateTestimonial() throws Exception {
         // given
-        UserProfile author = new UserProfile();
+        UserProfile author = new UserProfile("foo", "bar", null);
         Testimonial testimonial = new Testimonial(
                 author,
                 "Testimonial"
         );
         Testimonial testimonial1 = new Testimonial(
                 author,
-                "Testimonial"
+                "Updated Testimonial"
         );
 
         // when
@@ -56,18 +63,18 @@ class TestimonialControllerTest {
                 .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
                 .andExpect(MockMvcResultMatchers.content()
                         .string(
-                                "{\"id\":null,\"firstName\":\"Jane\",\"lastInitial\":\"I\",\"testimonial\":\"Testimonial\"}"));
+                                "{\"testimonialId\":null,\"author\":{\"userId\":null,\"firstName\":\"foo\",\"lastName\":\"bar\",\"profileImageLink\":null},\"testimonial\":\"Updated Testimonial\"}"));
     }
 
     @Test
     void testCreateNewTestimonial() throws Exception {
         // given
         Testimonial testimonial = new Testimonial(
-                new UserProfile(),
+                new UserProfile("foo", "bar", null),
                 "Testimonial"
         );
         Testimonial testimonial1 = new Testimonial(
-                new UserProfile(),
+                new UserProfile("foo", "bar", null),
                 "Testimonial"
         );
 
@@ -86,14 +93,14 @@ class TestimonialControllerTest {
                 .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
                 .andExpect(MockMvcResultMatchers.content()
                         .string(
-                                "{\"id\":null,\"firstName\":\"Jane\",\"lastInitial\":\"L\",\"testimonial\":\"Testimonial\"}"));
+                                "{\"testimonialId\":null,\"author\":{\"userId\":null,\"firstName\":\"foo\",\"lastName\":\"bar\",\"profileImageLink\":null},\"testimonial\":\"Testimonial\"}"));
     }
 
     @Test
     void testDeleteTestimonial() throws Exception {
         // given
         Testimonial testimonial = new Testimonial(
-                new UserProfile(),
+                new UserProfile("foo", "bar", null),
                 "Testimonial"
         );
 
@@ -109,7 +116,8 @@ class TestimonialControllerTest {
                 .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
                 .andExpect(MockMvcResultMatchers.content()
                         .string(
-                                "{\"id\":null,\"firstName\":\"Jane\",\"lastInitial\":\"L\",\"testimonial\":\"Testimonial\"}"));
+                                "{\"testimonialId\":null,\"author\":{\"userId\":null,\"firstName\":\"foo\",\"lastName\":\"bar\",\"profileImageLink\":null},\"testimonial\":\"Testimonial\"}"));
+
     }
 
     @Test
@@ -132,13 +140,13 @@ class TestimonialControllerTest {
     void testFindTestimonialById() throws Exception {
         // given
         Testimonial testimonial = new Testimonial(
-                new UserProfile(),
+                new UserProfile(1L,"foo", "bar", null),
                 "Testimonial"
         );
 
         // when
         when(this.testimonialService.getTestimonialById((Long) any())).thenReturn(testimonial);
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/api/v1/testimonials/{id}", 1);
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/api/v1/testimonials?id=1");
 
         // then
         MockMvcBuilders.standaloneSetup(this.testimonialController)
@@ -148,7 +156,28 @@ class TestimonialControllerTest {
                 .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
                 .andExpect(MockMvcResultMatchers.content()
                         .string(
-                                "{\"id\":null,\"firstName\":\"Jane\",\"lastInitial\":\"L\",\"testimonial\":\"Testimonial\"}"));
+                                "[{\"testimonialId\":null,\"author\":{\"userId\":1,\"firstName\":\"foo\",\"lastName\":\"bar\",\"profileImageLink\":null},\"testimonial\":\"Testimonial\"}]"));
+    }
+
+    @Test
+    void testFindTestimonialByFirstName() throws Exception {
+        // given
+        Testimonial testimonial = new Testimonial(
+                new UserProfile(1L,"foo", "bar", null),
+                "Testimonial"
+        );
+        // when
+        when(this.testimonialService.getTestimonialsByFirstName((String) any())).thenReturn(List.of(testimonial));
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/api/v1/testimonials?firstName=foo");
+
+        // then
+        MockMvcBuilders.standaloneSetup(this.testimonialController)
+                .build()
+                .perform(requestBuilder)
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
+                .andExpect(MockMvcResultMatchers.content()
+                        .string("[{\"testimonialId\":null,\"author\":{\"userId\":1,\"firstName\":\"foo\",\"lastName\":\"bar\",\"profileImageLink\":null},\"testimonial\":\"Testimonial\"}]"));
     }
 }
 
