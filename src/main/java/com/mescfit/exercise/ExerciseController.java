@@ -25,26 +25,27 @@ public class ExerciseController {
 
     @GetMapping("/")
     public String get(Model model) {
-        List<Exercise> exercises = this.exerciseService.getExercises();
+        List<Exercise> exercises = this.exerciseService.getAllExercises();
         model.addAttribute("exercises", exercises);
         return "doc";
     }
 
-    @PostMapping("/uploadFiles")
-    public String uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) throws IOException {
-        for(MultipartFile file: files){
-            exerciseService.addExercise("Exercise", "Description", file);
-        }
-        return "redirect:/";
-    }
-
-    @GetMapping("/downloadFile/{id}")
-    public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable Long id) {
-        Exercise exercise = this.exerciseService.getExerciseById(id);
-        return ResponseEntity.ok()
-                .contentType(MediaType.parseMediaType(exercise.getVideoType()))
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment:filename=\"" + exercise.getExerciseName() + "\"")
-                .body(new ByteArrayResource(exercise.getVideo()));
-    }
+//    TODO: Fix these upload and download methods so that they use AWS s3
+//    @PostMapping("/uploadFiles")
+//    public String uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) throws IOException {
+//        for(MultipartFile file: files){
+//            exerciseService.addExercise("Exercise", "Description", file);
+//        }
+//        return "redirect:/";
+//    }
+//
+//    @GetMapping("/downloadFile/{id}")
+//    public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable Long id) {
+//        Exercise exercise = this.exerciseService.getExerciseById(id);
+//        return ResponseEntity.ok()
+//                .contentType(MediaType.parseMediaType(exercise.getVideoType()))
+//                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment:filename=\"" + exercise.getExerciseName() + "\"")
+//                .body(new ByteArrayResource(exercise.getVideo()));
+//    }
 
 }

@@ -8,6 +8,6 @@ import java.util.List;
 
 @Repository
 public interface TestimonialRepository extends JpaRepository<Testimonial, Long> {
-    @Query("SELECT testimonial FROM Testimonial testimonial WHERE testimonial.firstName = ?1")
+    @Query("SELECT testimonial FROM Testimonial testimonial WHERE testimonial.author.firstName = ?1")
     List<Testimonial> findAllByFirstName(String name);
 }

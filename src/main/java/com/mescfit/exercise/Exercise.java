@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "exercise_library")
+@Table(name = "exercises")
 public class Exercise {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,12 +23,6 @@ public class Exercise {
     private String description;
     @Column(name = "exercise_video_link", unique = true)
     private String exerciseVideoLink;
-
-    public Exercise(Long exerciseId, String exerciseName, String description) {
-        this.exerciseId = exerciseId;
-        this.exerciseName = exerciseName;
-        this.description = description;
-    }
 
     public Exercise(String exerciseName, String description, String exerciseVideoLink) {
         this.exerciseName = exerciseName;

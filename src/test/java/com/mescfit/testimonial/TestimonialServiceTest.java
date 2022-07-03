@@ -1,5 +1,6 @@
 package com.mescfit.testimonial;
 
+import com.mescfit.userProfiles.UserProfile;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -37,9 +38,8 @@ class TestimonialServiceTest {
     void canGetTestimonialById() {
         // given
         Testimonial testimonial = new Testimonial(
-                "Bob",
-                "M",
-                "Testimonial"
+                new UserProfile(),
+                "testimonial"
         );
         given(testimonialRepository.findById(1L))
                 .willReturn(Optional.of(testimonial));
@@ -65,9 +65,8 @@ class TestimonialServiceTest {
     void canAddTestimonial() {
         // given
         Testimonial testimonial = new Testimonial(
-                "Bob",
-                "M",
-                "Testimonial"
+                new UserProfile(),
+                "testimonial"
         );
 
         // when
@@ -86,15 +85,14 @@ class TestimonialServiceTest {
     @Test
     void canUpdateTestimonial() {
         // given
+        UserProfile user = new UserProfile();
         Testimonial testimonial = new Testimonial(
-                "Bob",
-                "M",
-                "Testimonial"
+                user,
+                "testimonial"
         );
         Testimonial newTestimonial = new Testimonial(
-                "John",
-                "M",
-                "Testimonial"
+                user,
+                "new testimonial"
         );
         given(testimonialRepository.findById(1L))
                 .willReturn(Optional.of(testimonial));
@@ -114,9 +112,8 @@ class TestimonialServiceTest {
     void canDeleteTestimonial() {
         // given
         Testimonial testimonial = new Testimonial(
-                "Bob",
-                "M",
-                "Testimonial"
+                new UserProfile(),
+                "testimonial"
         );
         given(testimonialRepository.findById(1L))
                 .willReturn(Optional.of(testimonial));

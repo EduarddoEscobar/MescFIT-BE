@@ -15,10 +15,9 @@ import java.util.stream.Collectors;
 public class ExerciseService {
     private final ExerciseRepository exerciseRepository;
     private final ExerciseCategoryService exerciseCategoryService;
-    private final ExerciseConverter converter;
 
     public Exercise addExercise(String name, String description, MultipartFile file) throws IOException {
-        Exercise exercise = new Exercise(name, description, file.getContentType(), file.getBytes());
+        Exercise exercise = new Exercise(name, description, null);
         return this.exerciseRepository.save(exercise);
     }
 
@@ -27,20 +26,8 @@ public class ExerciseService {
                 .orElseThrow(() -> new NotFoundException(String.format("Exercise with id %s does was not found", id)));
     }
 
-    // TODO: Remove once getting rid of templates
-    public List<Exercise> getExercises() {
+    public List<Exercise> getAllExercises() {
         return exerciseRepository.findAll();
-    }
-
-    public List<ExerciseDTO> getAllExercises() {
-        List<ExerciseDTO> exercises = exerciseRepository.findAll()
-                .stream()
-                .map(converter::entityToDTO)
-                .collect(Collectors.toList());
-        exercises.forEach((exerciseDTO) ->
-                exerciseDTO.setCategories(exerciseCategoryService.getAllCategoriesForExercise(exerciseDTO.getId()))
-        );
-        return exercises;
     }
 
     public Exercise removeExercise(Long id) {
@@ -53,8 +40,6 @@ public class ExerciseService {
         Exercise exerciseToUpdate = getExerciseById(id);
         if(exercise.getExerciseName() != null) exerciseToUpdate.setExerciseName(exercise.getExerciseName());
         if(exercise.getDescription() != null) exerciseToUpdate.setDescription(exercise.getDescription());
-        if(exercise.getVideoType() != null) exerciseToUpdate.setVideoType(exercise.getVideoType());
-        if(exercise.getVideo() != null) exerciseToUpdate.setVideo(exercise.getVideo());
         return exerciseRepository.save(exerciseToUpdate);
     }
 }

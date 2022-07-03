@@ -1,5 +1,6 @@
 package com.mescfit.testimonial;
 
+import com.mescfit.userProfiles.UserProfile;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +23,9 @@ class TestimonialRepositoryTest {
     @Test
     void itShouldReturnAListOfAllTestimonialsWithTheSpecificName() {
         // given
+        UserProfile author = new UserProfile("Bob", "Foo", null);
         Testimonial testimonial = new Testimonial(
-                "Bob",
-                "M",
+                author,
                 "Testimonial"
         );
 

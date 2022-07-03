@@ -17,7 +17,7 @@ public class Testimonial {
     private Long testimonialId;
 
     @OneToOne(cascade = CascadeType.REMOVE, orphanRemoval = true)
-    @JoinColumn(name = "author_user_id", unique = true)
+    @JoinColumn(name = "user_id", unique = true)
     private UserProfile author;
 
     @Column(name = "testimonial", nullable = false, length = 1500)

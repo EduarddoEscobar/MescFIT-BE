@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.ArrayList;
 
+import com.mescfit.userProfiles.UserProfile;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,14 +32,13 @@ class TestimonialControllerTest {
     @Test
     void testUpdateTestimonial() throws Exception {
         // given
+        UserProfile author = new UserProfile();
         Testimonial testimonial = new Testimonial(
-                "Jane",
-                "L",
+                author,
                 "Testimonial"
         );
         Testimonial testimonial1 = new Testimonial(
-                "Jane",
-                "I",
+                author,
                 "Testimonial"
         );
 
@@ -63,13 +63,11 @@ class TestimonialControllerTest {
     void testCreateNewTestimonial() throws Exception {
         // given
         Testimonial testimonial = new Testimonial(
-                "Jane",
-                "L",
+                new UserProfile(),
                 "Testimonial"
         );
         Testimonial testimonial1 = new Testimonial(
-                "Jane",
-                "I",
+                new UserProfile(),
                 "Testimonial"
         );
 
@@ -95,8 +93,7 @@ class TestimonialControllerTest {
     void testDeleteTestimonial() throws Exception {
         // given
         Testimonial testimonial = new Testimonial(
-                "Jane",
-                "L",
+                new UserProfile(),
                 "Testimonial"
         );
 
@@ -135,8 +132,7 @@ class TestimonialControllerTest {
     void testFindTestimonialById() throws Exception {
         // given
         Testimonial testimonial = new Testimonial(
-                "Jane",
-                "L",
+                new UserProfile(),
                 "Testimonial"
         );
 

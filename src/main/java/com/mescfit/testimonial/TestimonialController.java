@@ -16,6 +16,11 @@ public class TestimonialController {
         return testimonialService.getAllTestimonials();
     }
 
+    @GetMapping("/{firstName}")
+    public List<Testimonial> findTestimonialByName(@PathVariable String firstName) {
+        return testimonialService.findTestimonialByFirstName(firstName);
+    }
+
     @GetMapping(value = {"/{id}"})
     public Testimonial findTestimonialById(@PathVariable Long id){
         return testimonialService.getTestimonialById(id);

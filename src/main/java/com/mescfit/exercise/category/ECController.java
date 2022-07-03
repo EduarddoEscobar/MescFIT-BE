@@ -1,8 +1,6 @@
 package com.mescfit.exercise.category;
 
 import com.mescfit.exercise.Exercise;
-import com.mescfit.exercise.ExerciseConverter;
-import com.mescfit.exercise.ExerciseDTO;
 import com.mescfit.exercise.ExerciseService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -16,19 +14,19 @@ public class ECController {
 
     private final ExerciseCategoryService exerciseCategoryService;
     private final ExerciseService exerciseService;
-    private final ExerciseConverter converter;
 
     @GetMapping
-    public List<ExerciseDTO> getAll() {
+    public List<Exercise> getAllExercises() {
         return exerciseService.getAllExercises();
     }
 
+//    TODO: Fix this method so that is correctly shows the exercise name and all its categories
     @PostMapping("/{id}")
-    public ExerciseDTO addEC(@RequestBody List<String> categories, @PathVariable Long id) {
+    public Exercise addEC(@RequestBody List<String> categories, @PathVariable Long id) {
         Exercise exercise = exerciseService.getExerciseById(id);
         List<String> categoryNames = exerciseCategoryService.addCategoriesToExercise(exercise, categories)
                 .stream()
                 .map((category) -> category.getId().getCategory().getCategoryName()).toList();
-        return converter.entityToDTO(exercise, categoryNames);
+        return null;
     }
 }
