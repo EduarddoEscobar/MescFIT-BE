@@ -1,4 +1,4 @@
-package com.mescfit.category;
+package com.mescfit.categories;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;

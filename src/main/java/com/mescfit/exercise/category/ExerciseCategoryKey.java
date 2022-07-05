@@ -1,6 +1,6 @@
 package com.mescfit.exercise.category;
 
-import com.mescfit.category.Category;
+import com.mescfit.categories.Category;
 import com.mescfit.exercise.Exercise;
 import lombok.*;
 

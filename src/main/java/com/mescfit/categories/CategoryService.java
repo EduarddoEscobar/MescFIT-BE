@@ -1,10 +1,9 @@
-package com.mescfit.category;
+package com.mescfit.categories;
 
 import com.mescfit.exceptions.NotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 

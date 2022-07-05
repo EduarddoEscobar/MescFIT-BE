@@ -11,13 +11,10 @@ public class ExerciseController {
         this.exerciseService = exerciseService;
     }
 
-//    TODO: fix so that this now gets all the exercises
-//    @GetMapping("/")
-//    public String get(Model model) {
-//        List<Exercise> exercises = this.exerciseService.getAllExercises();
-//        model.addAttribute("exercises", exercises);
-//        return "doc";
-//    }
+    @GetMapping
+    public List<Exercise> getAllExercises() {
+        return exerciseService.getAllExercises();
+    }
 
 //    TODO: Fix these upload and download methods so that they use AWS s3
 //    @PostMapping("/uploadFiles")
