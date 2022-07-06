@@ -13,7 +13,6 @@ import javax.persistence.*;
 @Table(name = "users")
 public class UserProfile {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long userId;
 
