@@ -7,6 +7,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/v1/exercises")
+@CrossOrigin("*")
 public class ExerciseController {
     private final ExerciseService exerciseService;
 
@@ -31,6 +33,12 @@ public class ExerciseController {
     )
     public void uploadExerciseThumbnail(@PathVariable Long exerciseId,
                                         @RequestParam("file")MultipartFile file) {
+        exerciseService.uploadExerciseThumbnail(exerciseId, file);
+    }
+
+    @GetMapping("/{exerciseId}/thumbnail/download")
+    public byte[] downloadExerciseThumbnail(@PathVariable Long exerciseId) {
+        return exerciseService.downloadThumbnail(exerciseId);
     }
 
     @PostMapping(
@@ -40,24 +48,12 @@ public class ExerciseController {
     )
     public void uploadExerciseVideo(@PathVariable Long exerciseId,
                                     @RequestParam("file")MultipartFile file) {
-
+        exerciseService.uploadExerciseVideo(exerciseId, file);
     }
-//    TODO: Fix these upload and download methods so that they use AWS s3
-//    @PostMapping("/uploadFiles")
-//    public String uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) throws IOException {
-//        for(MultipartFile file: files){
-//            exerciseService.addExercise("Exercise", "Description", file);
-//        }
-//        return "redirect:/";
-//    }
-//
-//    @GetMapping("/downloadFile/{id}")
-//    public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable Long id) {
-//        Exercise exercise = this.exerciseService.getExerciseById(id);
-//        return ResponseEntity.ok()
-//                .contentType(MediaType.parseMediaType(exercise.getVideoType()))
-//                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment:filename=\"" + exercise.getExerciseName() + "\"")
-//                .body(new ByteArrayResource(exercise.getVideo()));
-//    }
+
+    @GetMapping("/{exerciseId}/video/download")
+    public byte[] downloadExerciseVideo(@PathVariable Long exerciseId) {
+        return exerciseService.downloadVideo(exerciseId);
+    }
 
 }

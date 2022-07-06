@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -17,10 +16,7 @@ public class FileStoreService {
 
     private final FileStore fileStore;
 
-    public String uploadFile(BucketName bucket, UUID id, MultipartFile file) {
-        isFileEmpty(file);
-        isImageOrVideo(file);
-
+    public String uploadFile(BucketName bucket, Long id, MultipartFile file) {
         Map<String, String> metadata = new HashMap<>();
         metadata.put("Content-Type", file.getContentType());
         metadata.put("Content-Length", String.valueOf(file.getSize()));
@@ -37,7 +33,7 @@ public class FileStoreService {
     }
 
     public byte[] downloadFile(BucketName bucket,
-                               UUID id,
+                               Long id,
                                String key) {
         String path = String.format("%s%s",
                 bucket.getBucketName(),
@@ -45,12 +41,17 @@ public class FileStoreService {
         return fileStore.download(path, key);
     }
 
-    private void isImageOrVideo(MultipartFile file) {
-        if(!file.getContentType().contains("image") || !file.getContentType().contains("video"))
-            throw new IllegalStateException("File must be an image or video");
+    public void isVideo(MultipartFile file) {
+        if(!file.getContentType().contains("video"))
+            throw new IllegalStateException("File must be a video");
     }
 
-    private void isFileEmpty(MultipartFile file) {
+    public void isImage(MultipartFile file) {
+        if(!file.getContentType().contains("image"))
+            throw new IllegalStateException("File must be an image");
+    }
+
+    public void isFileEmpty(MultipartFile file) {
         if(file.isEmpty()) {
             throw new IllegalStateException("File is empty");
         }
