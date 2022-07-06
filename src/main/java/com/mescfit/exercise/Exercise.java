@@ -21,10 +21,10 @@ public class Exercise {
     @Column(name = "description", nullable = false)
     private String description;
 
-    @Column(name = "exercise_thumbnail_link", unique = true)
+    @Column(name = "exercise_thumbnail_link")
     private String exerciseThumbnailLink;
 
-    @Column(name = "exercise_video_link", unique = true)
+    @Column(name = "exercise_video_link")
     private String exerciseVideoLink;
 
     public Exercise(String exerciseName, String description, String exerciseVideoLink) {

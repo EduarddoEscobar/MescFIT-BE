@@ -43,12 +43,6 @@ CREATE TABLE exercise_categories
 ALTER TABLE categories
     ADD CONSTRAINT uc_categories_category_name UNIQUE (category_name);
 
-ALTER TABLE exercises
-    ADD CONSTRAINT uk_exercises_on_thumbnail_link UNIQUE (exercise_thumbnail_link);
-
-ALTER TABLE exercises
-    ADD CONSTRAINT uk_exercises_on_video_link UNIQUE (exercise_video_link);
-
 ALTER TABLE testimonials
     ADD CONSTRAINT uk_testimonials_on_author UNIQUE (user_id);
 
