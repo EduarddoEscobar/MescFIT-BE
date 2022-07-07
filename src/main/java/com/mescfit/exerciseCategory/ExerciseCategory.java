@@ -1,4 +1,4 @@
-package com.mescfit.exercise.category;
+package com.mescfit.exerciseCategory;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

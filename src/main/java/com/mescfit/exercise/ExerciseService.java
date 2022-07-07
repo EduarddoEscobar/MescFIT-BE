@@ -2,7 +2,7 @@ package com.mescfit.exercise;
 
 import com.mescfit.buckets.BucketName;
 import com.mescfit.exceptions.NotFoundException;
-import com.mescfit.exercise.category.ExerciseCategoryService;
+import com.mescfit.exerciseCategory.ExerciseCategoryService;
 import com.mescfit.filestore.FileStoreService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,9 +16,15 @@ public class ExerciseService {
     private final ExerciseRepository exerciseRepository;
     private final ExerciseCategoryService exerciseCategoryService;
     private final FileStoreService fileStoreService;
+    private final ExerciseConverter converter;
 
-    public Exercise addExercise(Exercise exercise){
-        return this.exerciseRepository.save(exercise);
+    public ExerciseDTO addExercise(ExerciseDTO newExercise){
+        Exercise exercise = exerciseRepository.save(converter.convertToExercise(newExercise));
+        List<String> categories = exerciseCategoryService.addCategoriesToExercise(exercise, newExercise.getCategories())
+                .stream()
+                .map((category) -> category.getId().getCategory().getCategoryName())
+                .toList();
+        return converter.convertFromExerciseAndCategories(exercise, categories);
     }
 
     public Exercise getExerciseById(Long exerciseId) {

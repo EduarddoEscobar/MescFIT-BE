@@ -27,9 +27,13 @@ public class Exercise {
     @Column(name = "exercise_video_link")
     private String exerciseVideoLink;
 
-    public Exercise(String exerciseName, String description, String exerciseVideoLink) {
+    public Exercise(String exerciseName,
+                    String description,
+                    String exerciseThumbnailLink,
+                    String exerciseVideoLink) {
         this.exerciseName = exerciseName;
         this.description = description;
+        this.exerciseThumbnailLink = exerciseThumbnailLink;
         this.exerciseVideoLink = exerciseVideoLink;
     }
 }

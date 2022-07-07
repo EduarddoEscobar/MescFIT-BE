@@ -1,4 +1,4 @@
-package com.mescfit.exercise.category;
+package com.mescfit.exerciseCategory;
 
 import com.mescfit.categories.Category;
 import com.mescfit.categories.CategoryService;
@@ -28,7 +28,7 @@ public class ExerciseCategoryService {
     }
 
     public List<ExerciseCategory> addCategoriesToExercise(Exercise exercise, List<String> categories) {
-        List<Category> addedCategories = categoryService.addCategories(categories);
+        categoryService.addCategories(categories);
         return categories.stream()
                 .map(categoryService::getByCategoryName)
                 .map((category) -> new ExerciseCategoryKey(exercise, category))

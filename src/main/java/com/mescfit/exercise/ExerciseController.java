@@ -1,5 +1,6 @@
 package com.mescfit.exercise;
 
+import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -8,13 +9,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/exercises")
+@AllArgsConstructor
 @CrossOrigin("*")
 public class ExerciseController {
     private final ExerciseService exerciseService;
-
-    public ExerciseController(ExerciseService exerciseService) {
-        this.exerciseService = exerciseService;
-    }
 
     @GetMapping
     public List<Exercise> getAllExercises() {
@@ -22,7 +20,7 @@ public class ExerciseController {
     }
 
     @PostMapping
-    public Exercise addExercise(@RequestBody Exercise exercise) {
+    public ExerciseDTO addExercise(@RequestBody ExerciseDTO exercise) {
         return exerciseService.addExercise(exercise);
     }
 
