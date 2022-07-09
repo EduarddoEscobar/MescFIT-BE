@@ -97,6 +97,6 @@ class CategoryServiceTest {
         // when
         // then
         assertThatThrownBy(() -> underTest.removeCategory("chest"))
-                .hasMessageContaining("Category with name Chest was not found");
+                .hasMessageContaining("Category with name chest was not found");
     }
 }
