@@ -23,10 +23,10 @@ class CategoryRepositoryTest {
     @Test
     void itShouldFindByCategoryName() {
         // given
-        Category category = new Category("Workout");
+        Category category = new Category("workout");
         underTest.save(category);
         // when
-        Optional<Category> result = underTest.findByCategoryName("Workout");
+        Optional<Category> result = underTest.findByCategoryName("workout");
         Category actual = null;
         if(result.isPresent()){
             actual = result.get();
@@ -39,10 +39,10 @@ class CategoryRepositoryTest {
     @Test
     void itShouldReturnTrueWhenCategoryWithNameExists() {
         // given
-        Category category = new Category("Workout");
+        Category category = new Category("workout");
         underTest.save(category);
         // when
-        Boolean result = underTest.categoryWithNameExists("Workout");
+        Boolean result = underTest.categoryWithNameExists("workout");
         // then
         assertThat(result).isTrue();
     }
@@ -50,10 +50,8 @@ class CategoryRepositoryTest {
     @Test
     void itShouldReturnFalseWhenCategoryWithNameDoesNotExists() {
         // given
-        Category category = new Category("Workout");
-        underTest.save(category);
         // when
-        Boolean result = underTest.categoryWithNameExists("Exercise");
+        Boolean result = underTest.categoryWithNameExists("workout");
         // then
         assertThat(result).isFalse();
     }

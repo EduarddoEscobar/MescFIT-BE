@@ -37,10 +37,10 @@ class CategoryServiceTest {
     @Test
     void canSeeIfCategoryWithNameDoesNotExists() {
         // given
-        given(categoryRepository.categoryWithNameExists("Chest"))
+        given(categoryRepository.categoryWithNameExists("chest"))
                 .willReturn(true);
         // when
-        Boolean result = underTest.categoryWithNameDoesNotExists("Chest");
+        Boolean result = underTest.categoryWithNameDoesNotExists("chest");
 
         // then
         assertThat(result).isFalse();
@@ -49,8 +49,8 @@ class CategoryServiceTest {
     @Test
     void canAddCategory() {
         // given
-        Category category = new Category("Chest");
-        given(categoryRepository.categoryWithNameExists("Chest"))
+        Category category = new Category("chest");
+        given(categoryRepository.categoryWithNameExists("chest"))
                 .willReturn(false);
         // when
         underTest.addCategory(category);
@@ -66,23 +66,23 @@ class CategoryServiceTest {
     @Test
     void willThrowWhenCategoryAlreadyExists() {
         // given
-        Category category = new Category("Chest");
-        given(categoryRepository.categoryWithNameExists("Chest"))
+        Category category = new Category("chest");
+        given(categoryRepository.categoryWithNameExists("chest"))
                 .willReturn(true);
         // when
         // then
         assertThatThrownBy(() -> underTest.addCategory(category))
-                .hasMessageContaining("Category with the name Chest already exists");
+                .hasMessageContaining("Category with the name chest already exists");
     }
 
     @Test
     void canRemoveCategory() {
         // given
-        Category category = new Category("Chest");
-        given(categoryRepository.findByCategoryName("Chest"))
+        Category category = new Category("chest");
+        given(categoryRepository.findByCategoryName("chest"))
                 .willReturn(Optional.of(category));
         // when
-        Category result = underTest.removeCategory("Chest");
+        Category result = underTest.removeCategory("chest");
 
         // then
         verify(categoryRepository).delete(category);
@@ -92,11 +92,11 @@ class CategoryServiceTest {
     @Test
     void willThrowWhenCategoryDoesNotExist() {
         // given
-        given(categoryRepository.findByCategoryName("Chest"))
+        given(categoryRepository.findByCategoryName("chest"))
                 .willReturn(Optional.empty());
         // when
         // then
-        assertThatThrownBy(() -> underTest.removeCategory("Chest"))
+        assertThatThrownBy(() -> underTest.removeCategory("chest"))
                 .hasMessageContaining("Category with name Chest was not found");
     }
 }

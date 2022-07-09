@@ -41,8 +41,8 @@ class ExerciseRepositoryTest {
                 null,
                 null
         );
-        Category category = new Category("Chest");
-        Category category2 = new Category("Upper Chest");
+        Category category = new Category("chest");
+        Category category2 = new Category("upper Chest");
         ExerciseCategory exerciseCategory = new ExerciseCategory(new ExerciseCategoryKey(
                 exercise,
                 category));
@@ -55,7 +55,7 @@ class ExerciseRepositoryTest {
         exerciseCategoryRepository.save(exerciseCategory);
         exerciseCategoryRepository.save(exerciseCategory2);
         // when
-        List<Exercise> result = underTest.findAllByCategoryName("Chest");
+        List<Exercise> result = underTest.findAllByCategoryName("chest");
 
         // then
         assertThat(result).isEqualTo(List.of(exercise));
@@ -80,8 +80,8 @@ class ExerciseRepositoryTest {
         underTest.save(exercise);
         underTest.save(exercise2);
 
-        Category category = new Category("Chest");
-        Category category2 = new Category("Upper Chest");
+        Category category = new Category("chest");
+        Category category2 = new Category("upper chest");
 
         categoryRepository.save(category);
         categoryRepository.save(category2);
@@ -96,7 +96,7 @@ class ExerciseRepositoryTest {
         exerciseCategoryRepository.save(exerciseCategory);
         exerciseCategoryRepository.save(exerciseCategory2);
         // when
-        List<Exercise> result = underTest.findAllByCategoryName("Chest");
+        List<Exercise> result = underTest.findAllByCategoryName("chest");
 
         // then
         assertThat(result).isEqualTo(List.of(exercise, exercise2));
