@@ -10,16 +10,9 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ExerciseDTO {
-
-    private Long id;
     private String exerciseName;
     private String description;
-
+    private String exerciseThumbnailLink;
+    private String exerciseVideoLink;
     private List<String> categories;
-
-    public ExerciseDTO(Long id, String exerciseName, String description) {
-        this.id = id;
-        this.exerciseName = exerciseName;
-        this.description = description;
-    }
 }

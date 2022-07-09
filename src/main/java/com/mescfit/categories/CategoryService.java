@@ -1,11 +1,11 @@
-package com.mescfit.category;
+package com.mescfit.categories;
 
 import com.mescfit.exceptions.NotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -36,7 +36,7 @@ public class CategoryService {
     public List<Category> addCategories(List<String> categories) {
         List<Category> categoriesAdded = categories.stream()
                 .filter(this::categoryWithNameDoesNotExists)
-                .map(Category::new)
+                .map(category -> new Category(category.toLowerCase()))
                 .collect(Collectors.toList());
         categoriesAdded.forEach(this::addCategory);
         return categoriesAdded;

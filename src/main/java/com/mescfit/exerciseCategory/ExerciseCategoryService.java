@@ -1,7 +1,7 @@
-package com.mescfit.exercise.category;
+package com.mescfit.exerciseCategory;
 
-import com.mescfit.category.Category;
-import com.mescfit.category.CategoryService;
+import com.mescfit.categories.Category;
+import com.mescfit.categories.CategoryService;
 import com.mescfit.exercise.Exercise;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -28,7 +28,7 @@ public class ExerciseCategoryService {
     }
 
     public List<ExerciseCategory> addCategoriesToExercise(Exercise exercise, List<String> categories) {
-        List<Category> addedCategories = categoryService.addCategories(categories);
+        categoryService.addCategories(categories);
         return categories.stream()
                 .map(categoryService::getByCategoryName)
                 .map((category) -> new ExerciseCategoryKey(exercise, category))

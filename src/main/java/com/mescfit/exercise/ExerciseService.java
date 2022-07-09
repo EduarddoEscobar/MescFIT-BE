@@ -1,60 +1,90 @@
 package com.mescfit.exercise;
 
+import com.mescfit.buckets.BucketName;
 import com.mescfit.exceptions.NotFoundException;
-import com.mescfit.exercise.category.ExerciseCategoryService;
+import com.mescfit.exerciseCategory.ExerciseCategoryService;
+import com.mescfit.filestore.FileStoreService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
 public class ExerciseService {
     private final ExerciseRepository exerciseRepository;
     private final ExerciseCategoryService exerciseCategoryService;
+    private final FileStoreService fileStoreService;
     private final ExerciseConverter converter;
 
-    public Exercise addExercise(String name, String description, MultipartFile file) throws IOException {
-        Exercise exercise = new Exercise(name, description, file.getContentType(), file.getBytes());
-        return this.exerciseRepository.save(exercise);
+    public ExerciseDTO addExercise(ExerciseDTO newExercise){
+        Exercise exercise = exerciseRepository.save(converter.convertToExercise(newExercise));
+        List<String> categories = exerciseCategoryService.addCategoriesToExercise(exercise, newExercise.getCategories())
+                .stream()
+                .map((category) -> category.getId().getCategory().getCategoryName())
+                .toList();
+        return converter.convertFromExerciseAndCategories(exercise, categories);
     }
 
-    public Exercise getExerciseById(Long id) {
-        return this.exerciseRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException(String.format("Exercise with id %s does was not found", id)));
+    public Exercise getExerciseById(Long exerciseId) {
+        return this.exerciseRepository.findById(exerciseId)
+                .orElseThrow(() -> new NotFoundException(String.format("Exercise with id %s does was not found", exerciseId)));
     }
 
-    // TODO: Remove once getting rid of templates
-    public List<Exercise> getExercises() {
+    public List<Exercise> getAllExercises() {
         return exerciseRepository.findAll();
     }
 
-    public List<ExerciseDTO> getAllExercises() {
-        List<ExerciseDTO> exercises = exerciseRepository.findAll()
-                .stream()
-                .map(converter::entityToDTO)
-                .collect(Collectors.toList());
-        exercises.forEach((exerciseDTO) ->
-                exerciseDTO.setCategories(exerciseCategoryService.getAllCategoriesForExercise(exerciseDTO.getId()))
-        );
-        return exercises;
+    public List<Exercise> getAllExercisesByCategory(String category) {
+        return exerciseRepository.findAllByCategoryName(category);
     }
 
-    public Exercise removeExercise(Long id) {
-        Exercise exerciseToDelete =  getExerciseById(id);
+    public Exercise removeExercise(Long exerciseId) {
+        Exercise exerciseToDelete =  getExerciseById(exerciseId);
         exerciseRepository.delete(exerciseToDelete);
         return exerciseToDelete;
     }
 
-    public Exercise updateExercise(Exercise exercise, Long id) {
-        Exercise exerciseToUpdate = getExerciseById(id);
+    public Exercise updateExercise(Exercise exercise, Long exerciseId) {
+        Exercise exerciseToUpdate = getExerciseById(exerciseId);
         if(exercise.getExerciseName() != null) exerciseToUpdate.setExerciseName(exercise.getExerciseName());
         if(exercise.getDescription() != null) exerciseToUpdate.setDescription(exercise.getDescription());
-        if(exercise.getVideoType() != null) exerciseToUpdate.setVideoType(exercise.getVideoType());
-        if(exercise.getVideo() != null) exerciseToUpdate.setVideo(exercise.getVideo());
         return exerciseRepository.save(exerciseToUpdate);
     }
+
+    public void uploadExerciseThumbnail(Long exerciseId, MultipartFile file) {
+        fileStoreService.isFileEmpty(file);
+        fileStoreService.isImage(file);
+        Exercise exercise = getExerciseById(exerciseId);
+        String uploadedFile = fileStoreService.uploadFile(BucketName.EXERCISE_LIBRARY_DEV, exerciseId, file);
+        exercise.setExerciseThumbnailLink(uploadedFile);
+        exerciseRepository.save(exercise);
+    }
+
+    public void uploadExerciseVideo(Long exerciseId, MultipartFile file) {
+        fileStoreService.isFileEmpty(file);
+        fileStoreService.isVideo(file);
+        Exercise exercise = getExerciseById(exerciseId);
+        String uploadedFile = fileStoreService.uploadFile(BucketName.EXERCISE_LIBRARY_DEV, exerciseId, file);
+        exercise.setExerciseVideoLink(uploadedFile);
+        exerciseRepository.save(exercise);
+    }
+
+    public byte[] downloadThumbnail(Long exerciseId) {
+        Exercise exercise = getExerciseById(exerciseId);
+        return fileStoreService.downloadFile(
+                BucketName.EXERCISE_LIBRARY_DEV,
+                exerciseId,
+                exercise.getExerciseThumbnailLink());
+    }
+
+    public byte[] downloadVideo(Long exerciseId) {
+        Exercise exercise = getExerciseById(exerciseId);
+        return fileStoreService.downloadFile(
+                BucketName.EXERCISE_LIBRARY_DEV,
+                exerciseId,
+                exercise.getExerciseVideoLink());
+    }
+
 }

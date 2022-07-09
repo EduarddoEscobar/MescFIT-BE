@@ -1,8 +1,9 @@
-INSERT INTO categories (category_name) values ('Exercise');
-INSERT INTO categories (category_name) values ('Workout');
-INSERT INTO categories (category_name) values ('Arms');
-INSERT INTO categories (category_name) values ('Legs');
-INSERT INTO categories (category_name) values ('Back');
-INSERT INTO categories (category_name) values ('Core');
-INSERT INTO categories (category_name) values ('Chest');
-INSERT INTO categories (category_name) values ('Shoulders');
+INSERT INTO categories (category_name) values ('exercise');
+INSERT INTO categories (category_name) values ('workout');
+INSERT INTO categories (category_name) values ('arms');
+INSERT INTO categories (category_name) values ('legs');
+INSERT INTO categories (category_name) values ('back');
+INSERT INTO categories (category_name) values ('core');
+INSERT INTO categories (category_name) values ('chest');
+INSERT INTO categories (category_name) values ('upper chest');
+INSERT INTO categories (category_name) values ('shoulders');

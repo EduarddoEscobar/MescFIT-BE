@@ -1,34 +1,44 @@
 package com.mescfit.exercise;
 
+import com.mescfit.exerciseCategory.ExerciseCategoryService;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class ExerciseConverter {
 
-    public ExerciseDTO entityToDTO(Exercise exercise) {
+    private final ExerciseCategoryService exerciseCategoryService;
+
+    public ExerciseDTO convertFromExercise(Exercise exercise) {
+        List<String> categories = exerciseCategoryService.getAllCategoriesForExercise(exercise.getExerciseId());
         return new ExerciseDTO(
-            exercise.getId(),
-            exercise.getExerciseName(),
-            exercise.getDescription()
+                exercise.getExerciseName(),
+                exercise.getDescription(),
+                exercise.getExerciseThumbnailLink(),
+                exercise.getExerciseVideoLink(),
+                categories
         );
     }
 
-    public ExerciseDTO entityToDTO(Exercise exercise, List<String> categories) {
-         return new ExerciseDTO(
-             exercise.getId(),
-             exercise.getExerciseName(),
-             exercise.getDescription(),
-             categories
-         );
+    public ExerciseDTO convertFromExerciseAndCategories(Exercise exercise, List<String> categories) {
+        return new ExerciseDTO(
+                exercise.getExerciseName(),
+                exercise.getDescription(),
+                exercise.getExerciseThumbnailLink(),
+                exercise.getExerciseVideoLink(),
+                categories
+        );
     }
 
-    public Exercise DTOToExercise(ExerciseDTO exerciseDTO) {
+    public Exercise convertToExercise(ExerciseDTO exerciseDTO) {
         return new Exercise(
-                exerciseDTO.getId(),
                 exerciseDTO.getExerciseName(),
-                exerciseDTO.getDescription()
+                exerciseDTO.getDescription(),
+                exerciseDTO.getExerciseThumbnailLink(),
+                exerciseDTO.getExerciseVideoLink()
         );
     }
 }

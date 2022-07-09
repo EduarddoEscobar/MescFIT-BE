@@ -1,50 +1,60 @@
 package com.mescfit.exercise;
 
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.http.HttpHeaders;
+import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.List;
 
-@Controller
+@RestController
+@RequestMapping("/api/v1/exercises")
+@AllArgsConstructor
+@CrossOrigin("*")
 public class ExerciseController {
     private final ExerciseService exerciseService;
 
-    public ExerciseController(ExerciseService exerciseService) {
-        this.exerciseService = exerciseService;
-    }
-
-    @GetMapping("/")
-    public String get(Model model) {
-        List<Exercise> exercises = this.exerciseService.getExercises();
-        model.addAttribute("exercises", exercises);
-        return "doc";
-    }
-
-    @PostMapping("/uploadFiles")
-    public String uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) throws IOException {
-        for(MultipartFile file: files){
-            exerciseService.addExercise("Exercise", "Description", file);
+    @GetMapping
+    public List<Exercise> getAllExercises(@RequestParam(required = false) String category) {
+        if(category != null) {
+            return exerciseService.getAllExercisesByCategory(category);
         }
-        return "redirect:/";
+        return exerciseService.getAllExercises();
     }
 
-    @GetMapping("/downloadFile/{id}")
-    public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable Long id) {
-        Exercise exercise = this.exerciseService.getExerciseById(id);
-        return ResponseEntity.ok()
-                .contentType(MediaType.parseMediaType(exercise.getVideoType()))
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment:filename=\"" + exercise.getExerciseName() + "\"")
-                .body(new ByteArrayResource(exercise.getVideo()));
+    @PostMapping
+    public ExerciseDTO addExercise(@RequestBody ExerciseDTO exercise) {
+        return exerciseService.addExercise(exercise);
+    }
+
+    @PostMapping(
+            path = "/{exerciseId}/thumbnail/upload",
+            consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public void uploadExerciseThumbnail(@PathVariable Long exerciseId,
+                                        @RequestParam("file")MultipartFile file) {
+        exerciseService.uploadExerciseThumbnail(exerciseId, file);
+    }
+
+    @GetMapping("/{exerciseId}/thumbnail/download")
+    public byte[] downloadExerciseThumbnail(@PathVariable Long exerciseId) {
+        return exerciseService.downloadThumbnail(exerciseId);
+    }
+
+    @PostMapping(
+            path = "/{exerciseId}/video/upload",
+            consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public void uploadExerciseVideo(@PathVariable Long exerciseId,
+                                    @RequestParam("file")MultipartFile file) {
+        exerciseService.uploadExerciseVideo(exerciseId, file);
+    }
+
+    @GetMapping("/{exerciseId}/video/download")
+    public byte[] downloadExerciseVideo(@PathVariable Long exerciseId) {
+        return exerciseService.downloadVideo(exerciseId);
     }
 
 }

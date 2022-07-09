@@ -26,8 +26,6 @@ public class TestimonialService {
 
     public Testimonial updateTestimonial(Testimonial testimonial, Long id) {
         Testimonial testimonialToUpdate = getTestimonialById(id);
-        if(testimonial.getFirstName() != null) testimonialToUpdate.setFirstName(testimonial.getFirstName());
-        if(testimonial.getLastInitial() != null) testimonialToUpdate.setLastInitial(testimonial.getLastInitial());
         if(testimonial.getTestimonial() != null) testimonialToUpdate.setTestimonial(testimonial.getTestimonial());
         return testimonialRepository.save(testimonialToUpdate);
     }
@@ -36,5 +34,9 @@ public class TestimonialService {
         Testimonial testimonial = getTestimonialById(id);
         testimonialRepository.deleteById(id);
         return testimonial;
+    }
+
+    public List<Testimonial> getTestimonialsByFirstName(String firstName) {
+        return testimonialRepository.findAllByFirstName(firstName);
     }
 }
