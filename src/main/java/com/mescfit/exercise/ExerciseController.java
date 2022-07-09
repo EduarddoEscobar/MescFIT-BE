@@ -15,7 +15,10 @@ public class ExerciseController {
     private final ExerciseService exerciseService;
 
     @GetMapping
-    public List<Exercise> getAllExercises() {
+    public List<Exercise> getAllExercises(@RequestParam(required = false) String categoryName) {
+        if(categoryName != null) {
+            return exerciseService.getAllExercisesByCategory(categoryName);
+        }
         return exerciseService.getAllExercises();
     }
 

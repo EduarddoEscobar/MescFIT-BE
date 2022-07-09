@@ -1,6 +1,5 @@
 package com.mescfit.exercise;
 
-import com.mescfit.exercise.Exercise;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

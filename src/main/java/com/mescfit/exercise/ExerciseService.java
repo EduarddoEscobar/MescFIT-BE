@@ -36,6 +36,10 @@ public class ExerciseService {
         return exerciseRepository.findAll();
     }
 
+    public List<Exercise> getAllExercisesByCategory(String category) {
+        return exerciseRepository.findAllByCategoryName(category);
+    }
+
     public Exercise removeExercise(Long exerciseId) {
         Exercise exerciseToDelete =  getExerciseById(exerciseId);
         exerciseRepository.delete(exerciseToDelete);

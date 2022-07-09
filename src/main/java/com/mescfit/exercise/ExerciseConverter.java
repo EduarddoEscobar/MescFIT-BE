@@ -1,6 +1,5 @@
 package com.mescfit.exercise;
 
-import com.mescfit.exerciseCategory.ExerciseCategoryController;
 import com.mescfit.exerciseCategory.ExerciseCategoryService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
