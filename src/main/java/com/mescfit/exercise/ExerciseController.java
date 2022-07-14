@@ -27,6 +27,21 @@ public class ExerciseController {
         return exerciseService.addExercise(exercise);
     }
 
+    @GetMapping("/{exerciseId}")
+    public Exercise getExerciseById(@PathVariable Long exerciseId) {
+        return exerciseService.getExerciseById(exerciseId);
+    }
+
+    @PostMapping("/{exerciseId}")
+    public Exercise updateExercise(@PathVariable Long exerciseId, @RequestBody Exercise exercise) {
+        return exerciseService.updateExercise(exercise, exerciseId);
+    }
+
+    @DeleteMapping("/{exerciseId}")
+    public Exercise deleteExercise(@PathVariable Long exerciseId) {
+        return exerciseService.removeExercise(exerciseId);
+    }
+
     @PostMapping(
             path = "/{exerciseId}/thumbnail/upload",
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
@@ -56,5 +71,4 @@ public class ExerciseController {
     public byte[] downloadExerciseVideo(@PathVariable Long exerciseId) {
         return exerciseService.downloadVideo(exerciseId);
     }
-
 }

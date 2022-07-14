@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Random;
 
 @Service
 @AllArgsConstructor
@@ -85,6 +86,12 @@ public class ExerciseService {
                 BucketName.EXERCISE_LIBRARY_DEV,
                 exerciseId,
                 exercise.getExerciseVideoLink());
+    }
+
+    public Exercise getRandomExerciseFromCategory(String category) {
+        List<Exercise> exercises = exerciseRepository.findAllByCategoryName(category);
+        int randomInd = new Random().nextInt(exercises.size());
+        return exercises.get(randomInd);
     }
 
 }

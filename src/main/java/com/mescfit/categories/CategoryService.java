@@ -35,7 +35,7 @@ public class CategoryService {
 
     public List<Category> addCategories(List<String> categories) {
         List<Category> categoriesAdded = categories.stream()
-                .filter(this::categoryWithNameDoesNotExists)
+                .filter(category -> categoryWithNameDoesNotExists(category.toLowerCase()))
                 .map(category -> new Category(category.toLowerCase()))
                 .collect(Collectors.toList());
         categoriesAdded.forEach(this::addCategory);
