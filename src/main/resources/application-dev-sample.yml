@@ -1,0 +1,9 @@
+app:
+  google:
+    clientId: googleKey
+  aws:
+    accessKey: awsAccessKey
+    secretKey: awsSecretKey
+  stripe:
+    apiKey: demoStripeAPIKey
+    secretKey: demoStripeSecretKey

@@ -1,0 +1,25 @@
+app:
+  base:
+    url: http://localhost:8080/api/v1
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5400/api-dev
+    username: docker
+    password: docker
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+  profiles:
+    active: '@spring.profiles.active@'
+
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 2KB
+      max-file-size: 200MB
+      max-request-size: 200MB

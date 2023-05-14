@@ -1,0 +1,97 @@
+package com.mescfit.exercise;
+
+import com.mescfit.aws.buckets.BucketName;
+import com.mescfit.aws.filestore.FileStoreService;
+import com.mescfit.exceptions.NotFoundException;
+import com.mescfit.exercisecategory.ExerciseCategoryService;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
+import java.util.Random;
+
+@Service
+@AllArgsConstructor
+public class ExerciseService {
+    private final ExerciseRepository exerciseRepository;
+    private final ExerciseCategoryService exerciseCategoryService;
+    private final FileStoreService fileStoreService;
+    private final ExerciseConverter converter;
+
+    public ExerciseDTO addExercise(ExerciseDTO newExercise) {
+        Exercise exercise = exerciseRepository.save(converter.convertToExercise(newExercise));
+        List<String> categories = exerciseCategoryService.addCategoriesToExercise(exercise, newExercise.getCategories())
+                .stream()
+                .map((category) -> category.getId().getCategory().getCategoryName())
+                .toList();
+        return converter.convertFromExerciseAndCategories(exercise, categories);
+    }
+
+    public Exercise getExerciseById(Long exerciseId) {
+        return this.exerciseRepository.findById(exerciseId)
+                .orElseThrow(() -> new NotFoundException(String.format("Exercise with id %s was not found", exerciseId)));
+    }
+
+    public List<Exercise> getAllExercises() {
+        return exerciseRepository.findAll();
+    }
+
+    public List<Exercise> getAllExercisesByCategory(String category) {
+        return exerciseRepository.findAllByCategoryName(category);
+    }
+
+    public Exercise removeExercise(Long exerciseId) {
+        Exercise exerciseToDelete = getExerciseById(exerciseId);
+        exerciseRepository.delete(exerciseToDelete);
+        return exerciseToDelete;
+    }
+
+    public Exercise updateExercise(Exercise exercise, Long exerciseId) {
+        Exercise exerciseToUpdate = getExerciseById(exerciseId);
+        if (exercise.getExerciseName() != null) exerciseToUpdate.setExerciseName(exercise.getExerciseName());
+        if (exercise.getDescription() != null) exerciseToUpdate.setDescription(exercise.getDescription());
+        return exerciseRepository.save(exerciseToUpdate);
+    }
+
+    public void uploadExerciseThumbnail(Long exerciseId, MultipartFile file) {
+        fileStoreService.isFileEmpty(file);
+        fileStoreService.isImage(file);
+        Exercise exercise = getExerciseById(exerciseId);
+        String uploadedFile = fileStoreService.uploadFile(BucketName.EXERCISE_LIBRARY_DEV, exerciseId, file);
+        exercise.setExerciseThumbnailLink(uploadedFile);
+        exerciseRepository.save(exercise);
+    }
+
+    public void uploadExerciseVideo(Long exerciseId, MultipartFile file) {
+        fileStoreService.isFileEmpty(file);
+        fileStoreService.isVideo(file);
+        Exercise exercise = getExerciseById(exerciseId);
+        String uploadedFile = fileStoreService.uploadFile(BucketName.EXERCISE_LIBRARY_DEV, exerciseId, file);
+        exercise.setExerciseVideoLink(uploadedFile);
+        exerciseRepository.save(exercise);
+    }
+
+    public byte[] downloadThumbnail(Long exerciseId) {
+        Exercise exercise = getExerciseById(exerciseId);
+        return fileStoreService.downloadFile(
+                BucketName.EXERCISE_LIBRARY_DEV,
+                exerciseId,
+                exercise.getExerciseThumbnailLink());
+    }
+
+    public byte[] downloadVideo(Long exerciseId) {
+        Exercise exercise = getExerciseById(exerciseId);
+        return fileStoreService.downloadFile(
+                BucketName.EXERCISE_LIBRARY_DEV,
+                exerciseId,
+                exercise.getExerciseVideoLink());
+    }
+
+    public Exercise getRandomExerciseFromCategory(String category) {
+        List<Exercise> exercises = exerciseRepository.findAllByCategoryName(category);
+        int randomInd = new Random().nextInt(exercises.size());
+        return exercises.get(randomInd);
+    }
+
+}
