@@ -5,12 +5,15 @@ import com.mescfit.exercise.Exercise;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Data
 @Entity
 @AllArgsConstructor
+@RequiredArgsConstructor
 @NoArgsConstructor
 @Table(name = "tracked_exercises")
 public class TrackedExercise {
@@ -27,5 +30,6 @@ public class TrackedExercise {
     @JoinColumn(name = "exercise_id", nullable = false)
     private Exercise exercise;
 
-
+    @Column(name = "tracked_date")
+    private LocalDate trackedDate = LocalDate.now();
 }
