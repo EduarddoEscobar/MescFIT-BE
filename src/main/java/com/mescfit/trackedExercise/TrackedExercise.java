@@ -4,7 +4,6 @@ import com.mescfit.appuser.AppUser;
 import com.mescfit.exercise.Exercise;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
@@ -14,7 +13,6 @@ import java.time.LocalDate;
 @Entity
 @AllArgsConstructor
 @RequiredArgsConstructor
-@NoArgsConstructor
 @Table(name = "tracked_exercises")
 public class TrackedExercise {
     @Id
