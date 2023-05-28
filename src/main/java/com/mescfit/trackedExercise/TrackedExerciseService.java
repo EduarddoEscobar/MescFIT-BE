@@ -24,21 +24,21 @@ public class TrackedExerciseService {
                 .orElseThrow(() -> new NotFoundException("TrackedExercise not found with id: " + trackedExerciseId));
     }
 
-    public List<ExerciseSet> getAllExerciseSetsForTrackedExercise(TrackedExercise trackedExercise) {
-        return exerciseSetRepository.findAllByTrackedExercise(trackedExercise);
+    public List<ExerciseSet> getAllExerciseSetsForTrackedExercise(Long trackedExerciseId) {
+        return exerciseSetRepository.findAllByTrackedExerciseId(trackedExerciseId);
     }
 
     public Long createTrackedExercise(TrackedExercise trackedExercise) {
         return trackedExerciseRepository.save(trackedExercise).getTrackedExerciseId();
     }
 
-    public Long deleteTrackedExercise(Long trackedExerciseId, Long userId) {
+    public TrackedExercise deleteTrackedExercise(Long trackedExerciseId, Long userId) {
         TrackedExercise trackedExercise = trackedExerciseRepository.findById(trackedExerciseId)
                 .orElseThrow(() -> new NotFoundException("TrackedExercise not found with id: " + trackedExerciseId));
         if (!Objects.equals(trackedExercise.getAppUser().getUserId(), userId)) {
             throw new IllegalStateException("You are not allowed to delete tracked exercises that are not yours");
         }
         trackedExerciseRepository.delete(trackedExercise);
-        return trackedExercise.getTrackedExerciseId();
+        return trackedExercise;
     }
 }
